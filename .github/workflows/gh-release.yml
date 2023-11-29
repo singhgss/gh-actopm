@@ -23,7 +23,7 @@ jobs:
           echo "repo name is $repoName"
           mkdir -p release_assets
           # Create a tarball (tgz) and a zip file of your code
-          tar -czvf --exclude='release_assets' release_assets/$repoName.tar.gz .
+          tar --exclude='release_assets' -czvf release_assets/$repoName.tar.gz .
           zip -r release_assets/$repoName.zip . -x "release_assets/*"
           echo "value=`basename ${{ github.repository }}`" >> $GITHUB_OUTPUT
       - name: Create Release
