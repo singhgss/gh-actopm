@@ -16,10 +16,10 @@ jobs:
       - run: cat README.md       
       - run: echo "Testing Release" > README.md
       - run: cat README.md       
-      - name: Create Release
-        run: |
-          if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref_type }}" == "tag" ]; then
-            gh release create ${{ github.ref }} --generate-notes
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Create Release
+      #   run: |
+      #     if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref_type }}" == "tag" ]; then
+      #       gh release create ${{ github.ref }} --generate-notes
+      #     fi
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
