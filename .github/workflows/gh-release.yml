@@ -19,6 +19,8 @@ jobs:
       - run: cat README.md       
       - name: Create Release
         run: |
-         gh release create $TAG --generate-notes
+          if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref_type }}" == "tag" ]; then
+            gh release create ${{ github.ref }} --generate-notes
+          fi
         env:
-          TAG: ${{ github.ref }} 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
