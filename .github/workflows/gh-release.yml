@@ -19,7 +19,7 @@ jobs:
       - id: archive-code      
         name: Archive code
         run: |
-          repoName=$(echo "value=`basename ${{ github.repository }}`")
+          repoName=$(echo "`basename ${{ github.repository }}`")
           echo "repo name is $repoName"
           mkdir -p release_assets
           # Create a tarball (tgz) and a zip file of your code
