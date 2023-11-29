@@ -30,7 +30,7 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref_type }}" == "tag" ]; then
             gh release create ${{ github.ref }} --generate-notes
-            gh release upload ${{ github.repository }} ${{ github.ref }} $RELEASE_REPO_NAME.tar.gz $RELEASE_REPO_NAME.zip
+            gh release upload ${{ github.repository }} ${{ github.ref }} release_assets/$RELEASE_REPO_NAME.tar.gz release_assets/$RELEASE_REPO_NAME.zip
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
