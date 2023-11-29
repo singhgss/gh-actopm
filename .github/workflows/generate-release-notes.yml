@@ -44,4 +44,7 @@ jobs:
         run: npx standard-version --release-as 1.2.3
 
       - name: Push Tag
-        run: git push --follow-tags origin main
+        run: |
+          git config --global user.email "ropbot@ssc-gpc.ca"
+          git config --global user.name "Github Robot"
+          git push --follow-tags origin main
