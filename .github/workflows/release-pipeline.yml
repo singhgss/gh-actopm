@@ -17,12 +17,9 @@ jobs:
       - run: echo "Testing Release" > README.md
       - run: cat README.md       
       - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
+        run: |
+          if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref_type }}" == "tag" ]; then
+            gh release create ${{ github.ref }} --generate-notes
+          fi
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
