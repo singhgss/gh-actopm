@@ -21,7 +21,7 @@ jobs:
         run: |
           repoName=$(echo "`basename ${{ github.repository }}`")
           echo "repo name is $repoName"
-          mkdir -p release_assets
+          mkdir -p release_assets/refs/tags/
           # Create a tarball (tgz) and a zip file of your code
           tar --exclude='release_assets' -czvf release_assets/${{ github.ref }}.tar.gz .
           zip -r release_assets/${{ github.ref }}.zip . -x "release_assets/*"
