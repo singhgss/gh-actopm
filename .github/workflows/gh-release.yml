@@ -28,12 +28,15 @@ jobs:
           tar --exclude='release_assets' -czvf release_assets/azure-cac-solution-$releaseName.tar.gz .
           zip -r release_assets/azure-cac-solution-$releaseName.zip . -x "release_assets/*"
           echo "value=`basename ${{ github.repository }}`" >> $GITHUB_OUTPUT
+          echo "releasename=$releaseName" >> $GITHUB_OUTPUT
+
       - name: Create Release
         run: |
           if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref_type }}" == "tag" ]; then
-            gh release create ${{ github.ref }} --generate-notes --latest './release_assets/azure-cac-solution-$releaseName.tar.gz#Azure CAC Solution' './release_assets/azure-cac-solution-$releaseName.zip#Azure CAC Solution' 
+            gh release create ${{ github.ref }} --generate-notes --latest './release_assets/azure-cac-solution-$RELEASE_NAME.tar.gz#Azure CAC Solution' './release_assets/azure-cac-solution-$RELEASE_NAME.zip#Azure CAC Solution' 
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_REPO_NAME: ${{ steps.archive-code.outputs.value }}
+          RELEASE_NAME: ${{ steps.archive-code.outputs.releasename }}
 
