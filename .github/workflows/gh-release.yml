@@ -35,7 +35,7 @@ jobs:
           if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref_type }}" == "tag" ]; then
             echo "releaseName is $RELEASE_NAME"
             echo "RELEASE_REPO_NAME is $RELEASE_REPO_NAME"
-            gh release create ${{ github.ref }} --generate-notes --latest './release_assets/azure-cac-solution-$RELEASE_NAME.tar.gz#Azure CAC Solution' './release_assets/azure-cac-solution-$RELEASE_NAME.zip#Azure CAC Solution' 
+            gh release create ${{ github.ref }} --generate-notes --latest "./release_assets/azure-cac-solution-$RELEASE_NAME.tar.gz#Azure CAC Solution" "./release_assets/azure-cac-solution-$RELEASE_NAME.zip#Azure CAC Solution" 
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
