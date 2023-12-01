@@ -47,8 +47,8 @@ jobs:
           releaseName=$(basename ${{ github.ref }})
           echo "Release is $releaseName" 
           # Create a tarball (tgz) and a zip file of your code
-          tar --exclude='release_assets' -czvf release_assets/azure-cac-solution-$releaseName.tar.gz .
-          zip -r release_assets/azure-cac-solution-$releaseName.zip . -x "release_assets/*"
+          tar --exclude='release_assets' --exclude='.git' --exclude='.github' -czvf release_assets/azure-cac-solution-$releaseName.tar.gz .
+          zip -r release_assets/azure-cac-solution-$releaseName.zip . -x "release_assets/*" -x ".git/*" -x ".github/*"
           echo "value=`basename ${{ github.repository }}`" >> $GITHUB_OUTPUT
           echo "releasename=$releaseName" >> $GITHUB_OUTPUT
 
