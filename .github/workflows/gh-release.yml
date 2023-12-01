@@ -6,15 +6,37 @@ on:
       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
 name: GH Release
+env:
+  ARTIFACT_NAME: PowerShell.Workflows.Release.ScriptSigning
+
 
 jobs:
+  sign_scripts:
+    name: Sign, validate, test and publish PowerShell scripts as pipeline artifacts
+    runs-on: windows-latest
+    environment: test
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Publish artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ${{ github.workspace }}
+
   build:
     name: Create Release
+    needs: sign_scripts
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - run: cat README.md       
+      # - name: Checkout code
+      #   uses: actions/checkout@v2
+      - name: Download zipped modules and replace old ones
+        uses: actions/download-artifact@v3
+        with:
+          name:  ${{ env.ARTIFACT_NAME }}
+          path: .              
+      - run: ls -la        
       - run: echo "Testing Release" > README.md
       - id: archive-code      
         name: Archive code
